@@ -1,0 +1,80 @@
+name: Deploy 🐱‍🏍
+
+on: 
+  push:
+    branches: [main]
+
+jobs:
+  
+  build: 
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.4.0]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Docker meta 🚢
+        id: docker-meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: freitas29/vuejsapp
+          tag-sha: true
+      
+      - name: Docker setup 🔨🚢
+        uses: docker/setup-qemu-action@v1
+
+      - name: Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to dockerhub 🔐
+        uses: docker/login-action@v1
+        with: 
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        
+      - name: Build and push 🔨🍕
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with: 
+          context: .
+          file: ./Dockerfile
+          plataforms: linux/amd64
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+
+
+      - name: Install gcloud 
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0'
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+
+      - name: Setup kubectl
+        uses: matootie/dokube@v1.3.2
+        with:
+          personalAccessToken: ${{ secrets.GCP_CREDENTIALS }}
+          clusterName: my-first-cluster-1
+
+      - name: set deployment image
+        run: kubectl set image deployment vueserver=freitas29/vuejsapp:${{steps.docker_meta.outputs.tags}}
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Instalando pacotes 📦
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: install
+      - name: Build 🔨
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: build
+    
