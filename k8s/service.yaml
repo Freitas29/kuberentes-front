@@ -6,7 +6,7 @@ spec:
   type: ClusterIP
   ports:
     - port: 80
-      name: TCP
+      name: vueserverport
       targetPort: 80
   selector:
     app: front
