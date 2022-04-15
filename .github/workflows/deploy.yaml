@@ -58,7 +58,7 @@ jobs:
         run: 'gcloud info'
 
       - name: set deployment image 👽
-      - run: |-
+        run: |-
           gcloud container clusters get-credentials "my-first-cluster-1" --zone "us-central1-c"
   
       - name: Deploy 👽👾
