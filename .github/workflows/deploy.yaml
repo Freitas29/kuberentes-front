@@ -63,7 +63,6 @@ jobs:
   
       - name: Deploy 👽👾
         run: |-
-          kubectl create -f k8s/deployment.yaml
           kubectl apply -f k8s/deployment.yaml
           kubectl create -f k8s/service.yaml
           kubectl apply -f k8s/service.yaml
