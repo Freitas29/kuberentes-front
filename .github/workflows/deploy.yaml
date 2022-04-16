@@ -63,6 +63,8 @@ jobs:
   
       - name: Deploy 👽👾
         run: |-
+          kubectl replace -f k8s/deployment.yaml
           kubectl apply -f k8s/deployment.yaml
+          kubectl replace -f k8s/service.yaml
           kubectl apply -f k8s/service.yaml
           kubectl get services -o wide
