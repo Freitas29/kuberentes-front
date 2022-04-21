@@ -1,4 +1,4 @@
-FROM node:slim as build-stage
+FROM node:14.17.1-alpine as build-stage
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY ./ .
 
 RUN npm run build
 
-FROM nginx as production-stage
+FROM nginx:stable-alpine as production-stage
 
 RUN mkdir /app
 
