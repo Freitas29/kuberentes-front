@@ -8,6 +8,8 @@ RUN npm install
 
 COPY ./ .
 
+RUN rm -rf dist
+
 RUN npm run build
 
 FROM nginx:stable-alpine as production-stage
