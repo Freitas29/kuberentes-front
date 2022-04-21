@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <p>teste deployyy</p>  
+  <p>Batata 🥔</p>
 </template>
 
 <style>
