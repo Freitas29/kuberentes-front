@@ -44,6 +44,7 @@ jobs:
           plataforms: linux/amd64
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
+          pull: true
 
 
       - name: Install gcloud ⛅
