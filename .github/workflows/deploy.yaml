@@ -49,7 +49,7 @@ jobs:
           file: ./Dockerfile
           plataforms: linux/amd64
           push: true
-          tags: freitas29/vuejsapp:{{ steps.tagging.outputs.new_version }}
+          tags: freitas29/vuejsapp:${{ steps.tagging.outputs.new_version }}
 
 
       - name: Install gcloud ⛅
