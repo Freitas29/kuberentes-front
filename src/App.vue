@@ -4,7 +4,6 @@
 </script>
 
 <template>
-  <p>Batata 🥔</p>
   <p>laranja 🍊</p>
 </template>
 
