@@ -69,6 +69,4 @@ jobs:
   
       - name: Deploy 👽👾
         run: |-
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
-          kubectl get services -o wide
+          kubectl set image deployment vueserver vueserver=freitas29/vuejsapp:${{ steps.tagging.outputs.new_version }}
