@@ -5,6 +5,8 @@
 
 <template>
   <p>laranja 🍊</p>
+  <p>Batata 🥔</p>
+  <p>Pera 🍐</p>
 </template>
 
 <style>
